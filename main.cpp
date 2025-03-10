@@ -7,7 +7,7 @@ std::vector<coder::byte> parseBinaryString(const std::string& binaryStr) {
         if (bit == '0' || bit == '1') {
             result.push_back(bit - '0');
         } else {
-            continue;
+           throw std::runtime_error("Error: Only binary input allowed");
         }
     }
 
