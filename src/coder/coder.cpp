@@ -6,7 +6,6 @@ namespace coder {
     {
         m_polynom = poly;
         m_msgSize = msgVec.size();
-        m_errorVector = errVec;
         m_msgVector = msgVec;
         m_degree = m_polynom.size() - 1;
         m_len = k;

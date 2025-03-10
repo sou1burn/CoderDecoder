@@ -11,9 +11,9 @@ namespace coder {
         bool makeDecision();
     private:
         std::vector<byte> m_polynom;
-        byte m_msgSize;
         std::vector<byte> m_codeWord;
         byte m_degree;
-        std::vector<byte> m_codeWord;
+        byte m_len;
+        std::vector<byte> m_errorVector;
     };
 }

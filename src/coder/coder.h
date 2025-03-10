@@ -12,11 +12,9 @@ namespace coder {
         ~Coder() = default;
         void setCoderData(std::vector<byte> &poly, const byte &k, std::vector<byte> &errVec, std::vector<byte> &msgVec);
         std::vector<byte> codeWord();
-        bool makeDecision();
     private:
         std::vector<byte> m_polynom;
         byte m_msgSize;
-        std::vector<byte> m_errorVector;
         std::vector<byte> m_msgVector;
         byte m_degree;
         byte m_len;

@@ -1,16 +1,22 @@
+#include "decoder.h"
+
 namespace coder {
+    void Decoder::setDecoderData(std::vector<byte> &poly, const byte &k, std::vector<byte> &codeWord)
+    {
+        m_polynom = poly;
+        m_codeWord = codeWord;
+        m_degree = m_polynom.size() - 1;
+        m_len = k;
+    }
+
 
     bool Decoder::makeDecision() {
-        const auto codeWord = Coder::codeWord();
-        if (codeWord.size() != m_len)
+        if (m_codeWord.size() != m_len)
             return false;
 
-        if (codeWord.size() != m_errorVector.size())
-            m_errorVector.resize(codeWord.size());
-
-        std::vector<byte> b(codeWord.size());
-        for (auto i = 0; i < codeWord.size(); ++i)
-            b[i] = codeWord[i] ^ m_errorVector[i];
+        std::vector<byte> b(m_codeWord.size());
+        for (auto i = 0; i < m_codeWord.size(); ++i)
+            b[i] = m_codeWord[i] ^ m_errorVector[i];
 
         std::vector<byte> syndrome(b.size(), 0);
 

@@ -3,22 +3,21 @@ project(infocom)
 
 set(CMAKE_CXX_STANDARD 14)
 
-include_directories(src/coder
-                    src/decoder)
+include_directories(src/coder)
 
-add_library(coder
-        src/coder/coder.h
-        src/coder/coder.cpp
-)
+set(CODER_SOURCES src/coder/coder.cpp)
 
-# Add the decoder library
-add_library(decoder
-        src/decoder/decoder.h
-        src/decoder/decoder.cpp
-)
+add_library(CODER ${CODER_SOURCES})
+target_include_directories(CODER PUBLIC CODER)
 
+include_directories(src/decoder)
 
-target_link_libraries(coder PUBLIC decoder)
+set(DECODER_SOURCES src/decoder/decoder.cpp)
+
+add_library(DECODER ${DECODER_SOURCES})
+target_include_directories(DECODER PUBLIC DECODER)
+
+target_link_libraries(DECODER PUBLIC CODER)
 
 add_executable(infocom main.cpp)
-target_link_libraries(infocom PUBLIC decoder coder)
+target_link_libraries(infocom PUBLIC CODER DECODER)
