@@ -30,3 +30,22 @@
 *.exe
 *.out
 *.app
+
+# Ignore CMake build directory
+/build/
+/CMakeCache.txt
+/CMakeFiles/
+/cmake_install.cmake
+/Makefile
+
+# Ignore VSCode CMake-related files
+CMakeUserPresets.json
+CMakePresets.json
+
+# Ignore CLion IDE files
+.idea/
+
+# Ignore Ninja and other build system files
+/build.ninja
+/.ninja_log
+/.ninja_deps
