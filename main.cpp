@@ -14,14 +14,17 @@ std::vector<coder::byte> parseBinaryString(const std::string& binaryStr) {
     return result;
 }
 
-int main(int __argc, char** __argv) {
-    if (__argc != 5)
-        std::cerr << "Запуск программы: " << __argv[0] << " <полином> <k> <вектор ошибок> <последовательность>" << std::endl;
+int main() {
+    std::string polynom, k, errVec, sequence;
 
-    std::string polynom = __argv[1];
-    std::string k = __argv[2];
-    std::string errVec = __argv[3];
-    std::string sequence = __argv[4];
+    std::cout << "Enter polynomial: ";
+    std::cin >> polynom;
+    std::cout << "Enter n: ";
+    std::cin >> k;
+    std::cout << "Enter error vector: ";
+    std::cin >> errVec;
+    std::cout << "Enter message sequence: ";
+    std::cin >> sequence;
 
     auto polynomVec = parseBinaryString(polynom);
     auto errorVector = parseBinaryString(errVec);
@@ -46,6 +49,7 @@ int main(int __argc, char** __argv) {
 
     bool result = decoder.makeDecision();
     std::cout << "Decision: " << (result ? "Error detected" : "Error not detected") << std::endl;
+
 
     return 0;
 }
