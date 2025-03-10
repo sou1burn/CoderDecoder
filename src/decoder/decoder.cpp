@@ -1,14 +1,14 @@
 #include "decoder.h"
 
 namespace coder {
-    void Decoder::setDecoderData(std::vector<byte> &poly, const byte &k, std::vector<byte> &codeWord)
+    void Decoder::setDecoderData(std::vector<byte> &poly, const byte &k, std::vector<byte> &codeWord, std::vector<byte> &errorVector)
     {
         m_polynom = poly;
         m_codeWord = codeWord;
         m_degree = m_polynom.size() - 1;
         m_len = k;
+        m_errorVector = errorVector;
     }
-
 
     bool Decoder::makeDecision() {
         if (m_codeWord.size() != m_len)

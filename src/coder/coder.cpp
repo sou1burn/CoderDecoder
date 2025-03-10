@@ -2,7 +2,7 @@
 
 namespace coder {
 
-    void Coder::setCoderData(std::vector<byte> &poly, const byte &k, std::vector<byte> &errVec, std::vector<byte> &msgVec)
+    void Coder::setCoderData(std::vector<byte> &poly, const byte &k, std::vector<byte> &msgVec)
     {
         m_polynom = poly;
         m_msgSize = msgVec.size();
