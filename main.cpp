@@ -1,4 +1,3 @@
-#include <iostream>
 #include "decoder.h"
 
 std::vector<coder::byte> parseBinaryString(const std::string& binaryStr) {
@@ -17,13 +16,13 @@ std::vector<coder::byte> parseBinaryString(const std::string& binaryStr) {
 int main() {
     std::string polynom, k, errVec, sequence;
 
-    std::cout << "Enter polynomial: ";
+    std::cout << "Enter g(x): ";
     std::cin >> polynom;
     std::cout << "Enter n: ";
     std::cin >> k;
     std::cout << "Enter error vector: ";
     std::cin >> errVec;
-    std::cout << "Enter message sequence: ";
+    std::cout << "Enter m: ";
     std::cin >> sequence;
 
     auto polynomVec = parseBinaryString(polynom);
@@ -31,15 +30,15 @@ int main() {
     auto msgVector = parseBinaryString(sequence);
     const coder::byte kValue = std::stoi(k);
 
-    std::cout << "Polynomial: " << polynom << std::endl;
-    std::cout << "k: " << k << std::endl;
-    std::cout << "Error Vector: " << errVec << std::endl;
-    std::cout << "Message Sequence: " << sequence << std::endl;
+    // std::cout << "g(x): " << polynom << std::endl;
+    // std::cout << "n: " << k << std::endl;
+    // std::cout << "Error Vector: " << errVec << std::endl;
+    // std::cout << "m: " << sequence << std::endl;
 
     coder::Coder coder;
     coder.setCoderData(polynomVec, kValue, msgVector);
     auto codeWord = coder.codeWord();
-    std::cout << "Code Word: ";
+    std::cout << "a (code word): ";
     for (auto byte : codeWord)
         std::cout << static_cast<int>(byte);
 
@@ -48,6 +47,19 @@ int main() {
     decoder.setDecoderData(polynomVec, kValue, codeWord, errorVector);
 
     bool result = decoder.makeDecision();
+    auto syndrome = decoder.getSyndrome();
+    auto b = decoder.getB();
+
+    std::cout << "received message b (a ^ e): ";
+    for (auto byte : b)
+        std::cout << static_cast<int>(byte);
+    std::cout << std::endl;
+
+    std::cout << "syndrome : ";
+    for (auto byte : syndrome)
+        std::cout << static_cast<int>(byte);
+    std::cout << std::endl;
+
     std::cout << "Decision: " << (result ? "Error detected" : "Error not detected") << std::endl;
 
 

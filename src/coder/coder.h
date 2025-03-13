@@ -2,6 +2,7 @@
 #include <cstdint>
 #include <vector>
 #include <string>
+#include <iostream>
 
 namespace coder {
     using byte = uint8_t;

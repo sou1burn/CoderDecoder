@@ -14,21 +14,21 @@ namespace coder {
         if (m_codeWord.size() != m_len)
             return false;
 
-        std::vector<byte> b(m_codeWord.size());
+        m_b.resize(m_codeWord.size());
         for (auto i = 0; i < m_codeWord.size(); ++i)
-            b[i] = m_codeWord[i] ^ m_errorVector[i];
+            m_b[i] = m_codeWord[i] ^ m_errorVector[i];
 
-        std::vector<byte> syndrome(b.size(), 0);
+        m_syndrome.resize(m_b.size(), 0);
 
-        for (auto i = 0; i <= b.size() - m_polynom.size(); ++i) {
-            if (b[i] == 1) {
+        for (auto i = 0; i <= m_b.size() - m_polynom.size(); ++i) {
+            if (m_b[i] == 1) {
                 for (auto j = 0; j < m_polynom.size(); ++j) {
-                    syndrome[i + j] ^= m_polynom[j];
+                    m_syndrome[i + j] ^= m_polynom[j];
                 }
             }
         }
 
-        for (const auto pow : syndrome)
+        for (const auto pow : m_syndrome)
             if (pow != 0)
                 return false;
 
