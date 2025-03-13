@@ -30,11 +30,6 @@ int main() {
     auto msgVector = parseBinaryString(sequence);
     const coder::byte kValue = std::stoi(k);
 
-    // std::cout << "g(x): " << polynom << std::endl;
-    // std::cout << "n: " << k << std::endl;
-    // std::cout << "Error Vector: " << errVec << std::endl;
-    // std::cout << "m: " << sequence << std::endl;
-
     coder::Coder coder;
     coder.setCoderData(polynomVec, kValue, msgVector);
     auto codeWord = coder.codeWord();
@@ -60,7 +55,7 @@ int main() {
         std::cout << static_cast<int>(byte);
     std::cout << std::endl;
 
-    std::cout << "Decision: " << (result ? "Error detected" : "Error not detected") << std::endl;
+    std::cout << "Decision: " << (result ? "Error not detected" : "Error detected") << std::endl;
 
 
     return 0;
