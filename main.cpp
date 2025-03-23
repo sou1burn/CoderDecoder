@@ -1,6 +1,7 @@
 #include "decoder.h"
 
-std::vector<coder::byte> parseBinaryString(const std::string& binaryStr) {
+std::vector<coder::byte> parseBinaryString(const std::string& binaryStr)
+{
     std::vector<coder::byte> result;
     for (char bit : binaryStr) {
         if (bit == '0' || bit == '1') {
@@ -13,8 +14,24 @@ std::vector<coder::byte> parseBinaryString(const std::string& binaryStr) {
     return result;
 }
 
+std::vector<std::vector<coder::byte>> generateOddErrorVector(int len)
+{
+    std::vector<std::vector<coder::byte>> oddErrorVectors;
+    size_t numVectors = 1 << len;
+    for (auto i = 0; i < numVectors; i += 2) {
+        std::vector<coder::byte> errorVector(len, 0);
+        for (auto j = 0; j < len; ++j) {
+            if (i & (1 << j)) {
+                errorVector[j] = 1;
+            }
+        }
+        oddErrorVectors.push_back(errorVector);
+    }
+    return oddErrorVectors;
+}
+
 int main() {
-    std::string polynom, k, errVec, sequence;
+    std::string polynom, k, errVec, sequence, option;
 
     std::cout << "Enter g(x): ";
     std::cin >> polynom;
@@ -31,7 +48,7 @@ int main() {
     const coder::byte kValue = std::stoi(k);
 
     coder::Coder coder;
-    coder.setCoderData(polynomVec, kValue, msgVector);
+    coder.setCoderData(polynomVec , kValue, msgVector);
     auto codeWord = coder.codeWord();
     std::cout << "a (code word): ";
     for (auto byte : codeWord)
@@ -57,6 +74,39 @@ int main() {
 
     std::cout << "Decision: " << (result ? "Error not detected" : "Error detected") << std::endl;
 
+    std::cout << "Enter option (1: fi(x) = x^3 + x + 1; 2: fi(x) = x^3 + x^2 + 1): ";
+    std::cin >> option;
+
+    std::vector<coder::byte> gx(5);
+    if (option == "1") {
+        // fix = {1, 0, 1, 1};
+        gx = {1, 1, 1, 0, 1};
+    } else if (option == "2") {
+        // fix = {1, 1, 0, 1};
+        gx = {1, 0, 1, 1, 1};
+    } else {
+        std::cerr << "Invalid option" << std::endl;
+        return 1;
+    }
+
+    coder::Coder dopCoder;
+    dopCoder.setCoderData(gx, kValue, msgVector);
+    auto codeWordDop = dopCoder.codeWord();
+
+    auto oddErrorVectors = generateOddErrorVector(codeWordDop.size());
+    coder::Decoder dopDecoder;
+
+    for (auto &errVec : oddErrorVectors) {
+        dopDecoder.setDecoderData(gx, codeWordDop.size(), codeWord, errVec);
+        bool result = dopDecoder.makeDecision();
+
+        if (result) {
+            std::cout << "Error not detected for error vector: ";
+            for (auto byte : errorVector)
+                std::cout << static_cast<int>(byte);
+            std::cout << std::endl;
+        }
+    }
 
     return 0;
 }
