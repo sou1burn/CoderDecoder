@@ -96,11 +96,11 @@ int main() {
     auto oddErrorVectors = generateOddErrorVector(codeWordDop.size());
     coder::Decoder dopDecoder;
 
-    for (auto &errVec : oddErrorVectors) {
-        dopDecoder.setDecoderData(gx, codeWordDop.size(), codeWord, errVec);
-        bool result = dopDecoder.makeDecision();
+    for (auto &errorVec : oddErrorVectors) {
+        dopDecoder.setDecoderData(gx, codeWordDop.size(), codeWord, errorVec);
+        bool dopResult = dopDecoder.makeDecision();
 
-        if (result) {
+        if (dopResult) {
             std::cout << "Error not detected for error vector: ";
             for (auto byte : errorVector)
                 std::cout << static_cast<int>(byte);
