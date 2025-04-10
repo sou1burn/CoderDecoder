@@ -177,7 +177,7 @@ int main() {
     // for (const auto &pair : bsAndSyndroms)
     //     std::cout << "b(x): " << helpers::printByteVector(pair.first) << " s(x): " << helpers::printByteVector(pair.second) << std::endl;
     auto count1 = 0;
-    for (auto pair : messagesAndErrorVectors) {
+    for (const auto &pair : messagesAndErrorVectors) {
         auto rem1 = pair.second;
         for (auto bit = 0; bit < rem1.size() - (gx.size() - 1); ++bit) {
             if (rem1[bit] == 1) {
@@ -277,7 +277,8 @@ int main() {
     std::cout << "res = " << helpers::printByteVector(rem) << std::endl;
 
     count1 = 0;
-    for (auto pair : messagesAndErrorVectors) {
+
+    for (const auto &pair : messagesAndErrorVectors) {
         auto rem1 = pair.second;
         for (auto bit = 0; bit < rem1.size() - (gx.size() - 1); ++bit) {
             if (rem1[bit] == 1) {
