@@ -2,13 +2,13 @@
 
 namespace coder {
 
-    void Coder::setCoderData(std::vector<byte> &poly, const byte &k, std::vector<byte> &msgVec)
+    void Coder::setCoderData(std::vector<byte> &poly, const byte &n, std::vector<byte> &msgVec)
     {
         m_polynom = poly;
         m_msgSize = msgVec.size();
         m_msgVector = msgVec;
         m_degree = m_polynom.size() - 1;
-        m_len = k;
+        m_len = n;
     }
 
     std::vector<byte> Coder::codeWord()
