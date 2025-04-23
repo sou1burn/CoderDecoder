@@ -10,7 +10,7 @@ namespace coder {
         m_errorVector = errorVector;
     }
 
-    bool Decoder::makeDecision() {
+       bool Decoder::makeDecision() {
         if (m_codeWord.size() != m_len)
             return false;
 
@@ -18,8 +18,8 @@ namespace coder {
         for (auto i = 0; i < m_codeWord.size(); ++i)
             m_b[i] = m_codeWord[i] ^ m_errorVector[i];
 
-        m_syndrome.resize(m_b.size() - 1, 0);
-        auto remainder = m_b;
+        m_syndrome.resize(m_b.size(), 0);
+        std::vector<coder::byte> remainder = m_b;
         // std::cout << "\nb(x): ";
         // for (auto byte : m_b) std::cout << static_cast<int>(byte);
         // std::cout << "\n";
@@ -41,7 +41,6 @@ namespace coder {
 
                 for (size_t j = 0; j < m_polynom.size(); ++j) {
                     remainder[i + j] ^= m_polynom[j];
-                    m_syndrome[i + j] = remainder[i + j];
                 }
 
                 // std::cout << "m_b after step:  ";
@@ -49,11 +48,12 @@ namespace coder {
                 // std::cout << "\n";
             }
         }
+        m_syndrome.resize(m_polynom.size() - 1, 0);
+        std::copy(remainder.end() - m_syndrome.size(), remainder.end(), m_syndrome.begin());
         // g(x):1110
         // n:8
         // error vector:10110111
         // m:11101
-        std::copy(remainder.end() - m_syndrome.size(), remainder.end(), m_syndrome.begin());
         for (const auto pow : m_syndrome)
             if (pow != 0)
                 return false;
