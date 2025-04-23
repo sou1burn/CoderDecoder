@@ -7,10 +7,10 @@ namespace coder {
     public:
         explicit Decoder() = default;
         ~Decoder() = default;
-        void setDecoderData(std::vector<byte> &poly, const byte &n, std::vector<byte> &codeWord, std::vector<byte> &errorVector);
+        void setDecoderData(const std::vector<byte> &poly, const byte &n, const std::vector<byte> &codeWord, const std::vector<byte> &errorVector);
         bool makeDecision();
-        std::vector<byte> getSyndrome() { return m_syndrome; }
-        std::vector<byte> getB() { return m_b; }
+        const std::vector<byte> &getSyndrome() { return m_syndrome; }
+        const std::vector<byte> &getB() { return m_b; }
     private:
         std::vector<byte> m_polynom;
         std::vector<byte> m_codeWord;

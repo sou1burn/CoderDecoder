@@ -11,8 +11,8 @@ namespace coder {
     public:
         explicit Coder() = default;
         ~Coder() = default;
-        void setCoderData(std::vector<byte> &poly, const byte &n, std::vector<byte> &msgVec);
-        std::vector<byte> codeWord();
+        void setCoderData(const std::vector<byte> &poly, const byte &n, const std::vector<byte> &msgVec);
+        const std::vector<byte> &codeWord();
     private:
         std::vector<byte> m_polynom;
         std::vector<byte> m_msgVector;

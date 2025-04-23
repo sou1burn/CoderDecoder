@@ -2,7 +2,7 @@
 
 namespace coder {
 
-    void Coder::setCoderData(std::vector<byte> &poly, const byte &n, std::vector<byte> &msgVec)
+    void Coder::setCoderData(const std::vector<byte> &poly, const byte &n, const std::vector<byte> &msgVec)
     {
         m_polynom = poly;
         m_msgSize = msgVec.size();
@@ -10,7 +10,7 @@ namespace coder {
         m_degree = m_polynom.size() - 1;
     }
 
-    std::vector<byte> Coder::codeWord()
+    const std::vector<byte> &Coder::codeWord()
     {
         std::vector<byte> a = m_msgVector;
         a.resize(m_msgVector.size() + m_degree, 0);

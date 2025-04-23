@@ -1,7 +1,7 @@
 #include "decoder.h"
 //dop C
 namespace coder {
-    void Decoder::setDecoderData(std::vector<byte> &poly, const byte &n, std::vector<byte> &codeWord, std::vector<byte> &errorVector)
+    void Decoder::setDecoderData(const std::vector<byte> &poly, const byte &n, const std::vector<byte> &codeWord, const std::vector<byte> &errorVector)
     {
         m_polynom = poly;
         m_codeWord = codeWord;
