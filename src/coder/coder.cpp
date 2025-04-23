@@ -8,7 +8,6 @@ namespace coder {
         m_msgSize = msgVec.size();
         m_msgVector = msgVec;
         m_degree = m_polynom.size() - 1;
-        m_len = n;
     }
 
     std::vector<byte> Coder::codeWord()

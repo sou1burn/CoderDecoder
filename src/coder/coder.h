@@ -18,6 +18,5 @@ namespace coder {
         std::vector<byte> m_msgVector;
         byte m_msgSize;
         byte m_degree;
-        byte m_len;
     };
 }
